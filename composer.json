@@ -1,0 +1,14 @@
+{
+	"name": "heyday/silverstripe-composeparser",
+	"description": "Adds new syntax to SilverStripe's template engine",
+	"type": "silverstripe-module",
+	"authors": [
+		{
+			"name": "Cam Spiers",
+			"email": "camspiers@gmail.com"
+		}
+	],
+	"autoload": {
+		"files": ["src/ComposeTemplateParser.php"]
+	}
+}
