@@ -1,7 +1,6 @@
 # SilverStripe Compose Parser
 
-Allows the use of an html-like syntax for template include, and new composition functionality for templates.
-This new functionality should allow the creation of more resuable html both across projects and within projects
+Allows the use of an html-like syntax for template includes, and new composition functionality for more reusable templates.
 
 ## Installation (with composer)
 
@@ -15,7 +14,7 @@ Currently requires https://github.com/silverstripe/silverstripe-framework/pull/2
 
 `button.ss`
 
-```html
+```php
 <% if $href %>
 	<a class="btn<% if $type %> btn-$type<% end_if %><% if $size %> btn-$size<% end_if %> $classes" href="$href"><% composed %></a>
 <% else %>
@@ -43,13 +42,13 @@ Currently requires https://github.com/silverstripe/silverstripe-framework/pull/2
 
 `nav.ss`
 
-```html
+```php
 <ul class="nav <% if $classes %> $classes<% end_if %>"><% composed %></ul>
 ```
 
 `navitem.ss`
 
-```html
+```php
 <li class="nav-item<% if $FirstLast %> nav-$FirstLast<% end_if %><% if $classes %> $classes<% end_if %>">
 	<% if $Composed %>
 		<% composed %>
@@ -61,13 +60,13 @@ Currently requires https://github.com/silverstripe/silverstripe-framework/pull/2
 
 `navlink.ss`
 
-```html
+```php
 <a href="$href" class="$LinkingMode"><% if $Composed %><% composed %><% else %>$MenuTitle<% end_if %></a>
 ```
 
 #### Using the nav
 
-```html
+```php
 Simple usage:
 <:nav>
 	<% loop $SomeSet %>
