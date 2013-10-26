@@ -4,8 +4,6 @@ Allows the use of an html-like syntax for template includes, and new composition
 
 ## Installation (with composer)
 
-Currently requires https://github.com/silverstripe/silverstripe-framework/pull/2557
-
 	composer require heyday/silverstripe-composeparser
 
 ## Examples

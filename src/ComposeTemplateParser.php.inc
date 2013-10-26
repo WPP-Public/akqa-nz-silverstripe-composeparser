@@ -81,24 +81,27 @@ class ComposeTemplateParser extends SSTemplateParser {
 		$res['arguments'][] = $sub['php'];
 	}
 
-	function Compose__finalise(&$res){
-		$template = $res['Template']['text'];
-		$arguments = $res['arguments'];
-
+	function Compose__finalise(&$res) {
 		if (isset($res['Composed'])) {
-			$composed = 'function () use ($scope) { $val = \'\'; '.$res['Composed']['php'].' return $val; }';
+			$template = $res['Template']['text'];
+			$arguments = implode(',', $res['arguments']);
+			$res['php'] .= <<<PHP
+\$val .= SSViewer::execute_template(
+	'$template',
+	\$scope->getItem(),
+	array(
+		'Composed' => function () use (\$scope) {
+			\$val = '';
+			{$res['Composed']['php']}\t\t\treturn \$val;
+		},
+		$arguments
+	),
+	\$scope
+);
+PHP;
 		} else {
-			$composed = "false";
-		}
-
-		$res['php'] .= '$val .= SSViewer::execute_template(\''.$template.'\', $scope->getItem(),' . 
-			'array("Composed" => '.$composed.','.implode(',', $arguments)."), \$scope);\n";
-
-		if($this->includeDebuggingComments) { // Add include filename comments on dev sites
-			$res['php'] =
-				'$val .= \'<!-- compose '.addslashes($template).' -->\';'. "\n".
-				$res['php'].
-				'$val .= \'<!-- end compose '.addslashes($template).' -->\';'. "\n";
+            $res['template'] = '\''.$res['Template']['text'].'\'';
+            $this->Include__finalise($res);
 		}
 	}
 
