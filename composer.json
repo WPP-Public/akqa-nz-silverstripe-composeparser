@@ -2,6 +2,7 @@
 	"name": "heyday/silverstripe-composeparser",
 	"description": "Adds new syntax to SilverStripe's template engine",
 	"type": "silverstripe-module",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Cam Spiers",
