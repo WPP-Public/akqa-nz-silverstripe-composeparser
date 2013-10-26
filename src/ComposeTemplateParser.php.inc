@@ -100,8 +100,8 @@ class ComposeTemplateParser extends SSTemplateParser {
 );
 PHP;
 		} else {
-            $res['template'] = '\''.$res['Template']['text'].'\'';
-            $this->Include__finalise($res);
+			$res['template'] = '\''.$res['Template']['text'].'\'';
+			$this->Include__finalise($res);
 		}
 	}
 
