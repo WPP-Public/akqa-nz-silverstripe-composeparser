@@ -17,7 +17,7 @@ class ComposeTemplateParser extends SSTemplateParser {
 		
 	ComposedArgumentString: / (\\\\ | \\. | [^$q\\]) /
 		
-	ComposedArgumentInjection: BracketInjection | SimpleInjection
+	ComposedArgumentInjection: BracketInjection | SimpleInjection | If
 
 	ComposedArgumentQuotedString: q:/['"]/ ( ComposedArgumentInjection | ComposedArgumentString )* '$q'
 
@@ -38,11 +38,23 @@ class ComposeTemplateParser extends SSTemplateParser {
 	function ComposedArgumentInjection_STR(&$res, $sub) {
 		$res['php'] = '\'.'.str_replace('$$FINAL', 'XML_val', $sub['Lookup']['php']).'.\'';
 	}
-	    
+
+	function ComposedArgumentInjection_If(&$res, $sub) {
+		$res['php'] .= <<<PHP
+' . call_user_func(
+	function () use (\$scope) {
+		\$val = '';
+		{$sub['php']}
+		return \$val;
+	}
+) . '
+PHP;
+	}
+
 	function ComposedArgumentQuotedString_ComposedArgumentString(&$res, $sub) {
 		$res['php'] .= $sub['text'];
 	}
-	    
+
 	function ComposedArgumentQuotedString_ComposedArgumentInjection(&$res, $sub) {
 		$res['php'] .= $sub['php'];
 	}
