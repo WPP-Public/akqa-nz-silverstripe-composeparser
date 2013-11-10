@@ -70,8 +70,9 @@ PHP;
 
 	
 	# Rule copied from SSTemplateParser to allow for extension
+	ComposeWord: / [A-Za-z_] [A-Za-z0-9_\-]* /
 	NamedArgument: Name:Word "=" Value:Argument
-	ComposedNamedArgument extends NamedArgument: Name:Word "=" Value:ComposedArgument
+	ComposedNamedArgument extends NamedArgument: Name:ComposeWord "=" Value:ComposedArgument
 
 	*/
 
