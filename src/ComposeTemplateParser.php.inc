@@ -29,6 +29,7 @@ class ComposeTemplateParser extends SSTemplateParser {
 		:FreeString
 	
 	ComposedArgument extends Argument:
+		'{' < :IfArgument > '}' |
 		:DollarMarkedLookup |
 		:ComposedArgumentQuotedString |
 		:Lookup !(< FreeString)|
@@ -62,6 +63,11 @@ PHP;
 	function ComposedArgument_ComposedArgumentQuotedString(&$res, $sub) {
 		$res['ArgumentMode'] = 'string';
 		$res['php'] = '\'' .$sub['php'] . '\'';
+	}
+
+	function ComposedArgument_IfArgument(&$res, $sub) {
+		$res['ArgumentMode'] = 'string';
+		$res['php'] = $sub['php'];
 	}
 
 	/*!*
