@@ -8,8 +8,5 @@
 			"name": "Cam Spiers",
 			"email": "camspiers@gmail.com"
 		}
-	],
-	"autoload": {
-		"files": ["src/ComposeTemplateParser.php"]
-	}
+	]
 }
